@@ -27,8 +27,8 @@ const SearchBar = ({ onSubmit }) => {
           placeholder="Search images and photos"
         />
         <button type="submit" className={css.button}>
-          <span className={css.buttonLabel}></span>
-          <FaSearch size={25} />
+          {/* <span className={css.buttonLabel}></span>
+          <FaSearch size={25} /> */}
         </button>
       </form>
     </header>

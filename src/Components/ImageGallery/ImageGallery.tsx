@@ -6,7 +6,7 @@ const ImageGallery = ({ photos }) => {
       {photos.map(({ id, urls: { small }, alt_description }) => {
         return (
           <li key={id} className={css.galleryItem}>
-            <div className={css.imgWrapper}>
+            <div>
               <img src={small} alt={alt_description} />
             </div>
           </li>

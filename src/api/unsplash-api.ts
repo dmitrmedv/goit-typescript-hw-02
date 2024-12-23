@@ -6,13 +6,16 @@ export default class UnsplashAPI {
 
   page = 1;
   query = "";
+  per_page = 100;
 
   async fetchImages() {
     const baseSearchParams = new URLSearchParams({
+      per_page: this.per_page,
       client_id: this.#BASE_KEY,
       page: this.page,
       query: this.query,
     });
+
     const response = await axios.get(
       `${this.#BASE_URL}search/photos/?${baseSearchParams}`
     );

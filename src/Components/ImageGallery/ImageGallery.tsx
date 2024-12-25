@@ -1,14 +1,29 @@
+import { useState } from "react";
+import ImageModal from "../ImageModal/ImageModal";
 import css from "./ImageGallery.module.css";
 
 const ImageGallery = ({ photos }) => {
+  const [showModal, setShowModal] = useState(false);
+
+  const toggleModal = () => {
+    setShowModal((prev) => !prev);
+  };
+
   return (
     <ul className={css.gallery}>
-      {photos.map(({ id, urls: { small }, alt_description }) => {
+      {photos.map(({ id, urls: { small, regular }, alt_description }) => {
         return (
           <li key={id} className={css.galleryItem}>
-            <div>
-              <img src={small} alt={alt_description} />
+            <div className={css.imgWrapper}>
+              <img src={small} alt={alt_description} onClick={toggleModal} />
             </div>
+            {showModal && (
+              <ImageModal
+                largeImageURL={regular}
+                toggleModal={toggleModal}
+                alt={alt_description}
+              ></ImageModal>
+            )}
           </li>
         );
       })}

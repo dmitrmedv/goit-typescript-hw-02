@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import css from "./Searchbar.module.css";
+import toast from "react-hot-toast";
+import { Loader } from "../Loader/Loader";
 
-const SearchBar = ({ onSubmit }) => {
+const SearchBar = ({ onSubmit, loading }) => {
   const [query, setQuery] = useState<string>("");
 
   const setSearchQuery = (event): void => {
@@ -11,8 +13,11 @@ const SearchBar = ({ onSubmit }) => {
 
   const handleSubmit = (event): void => {
     event.preventDefault();
+    if (!query) {
+      toast.error(`заповніть поле пошуку...`);
+      return;
+    }
     onSubmit(query);
-    // event.target.reset();
   };
 
   return (
@@ -27,8 +32,8 @@ const SearchBar = ({ onSubmit }) => {
           placeholder="Search images and photos"
         />
         <button type="submit" className={css.button}>
-          {/* <span className={css.buttonLabel}></span>
-          <FaSearch size={25} /> */}
+          <span className={css.buttonLabel}></span>
+          {loading ? <Loader /> : <FaSearch size={25} />}
         </button>
       </form>
     </header>

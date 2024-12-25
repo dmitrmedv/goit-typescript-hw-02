@@ -6,7 +6,7 @@ export default class UnsplashAPI {
 
   page = 1;
   query = "";
-  per_page = 100;
+  per_page = 12;
 
   async fetchImages() {
     const baseSearchParams = new URLSearchParams({

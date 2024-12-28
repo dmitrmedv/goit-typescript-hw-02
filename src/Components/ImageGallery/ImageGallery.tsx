@@ -1,17 +1,20 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import ImageModal from "../ImageModal/ImageModal";
 import css from "./ImageGallery.module.css";
+import { ImageSearchResponse } from "../../types";
 
-const ImageGallery = ({ photos }) => {
-  const [showModal, setShowModal] = useState(false);
+const ImageGallery: React.FC<Pick<ImageSearchResponse, "results">> = ({
+  results,
+}) => {
+  const [showModal, setShowModal] = useState<boolean>(false);
 
-  const toggleModal = () => {
+  const toggleModal = (): void => {
     setShowModal((prev) => !prev);
   };
 
   return (
     <ul className={css.gallery}>
-      {photos.map(({ id, urls: { small, regular }, alt_description }) => {
+      {results.map(({ id, urls: { small, regular }, alt_description }) => {
         return (
           <li key={id} className={css.galleryItem}>
             <div className={css.imgWrapper}>

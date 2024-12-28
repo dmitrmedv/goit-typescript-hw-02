@@ -1,12 +1,22 @@
 import css from "./ImageModal.module.css";
 import { createPortal } from "react-dom";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 
-const modalRoot = document.querySelector("#modal-root");
+const modalRoot = document.querySelector("#modal-root") as HTMLElement;
 
-const ImageModal = ({ largeImageURL, toggleModal, alt }) => {
+interface ImageModalProps {
+  largeImageURL: string;
+  toggleModal: () => void;
+  alt: string;
+}
+
+const ImageModal: React.FC<ImageModalProps> = ({
+  largeImageURL,
+  toggleModal,
+  alt,
+}) => {
   useEffect(() => {
-    function escCloseModal(e) {
+    function escCloseModal(e: KeyboardEvent): void {
       if (e.code === "Escape") {
         toggleModal();
       }
@@ -15,7 +25,7 @@ const ImageModal = ({ largeImageURL, toggleModal, alt }) => {
     return () => window.removeEventListener("keydown", escCloseModal);
   }, [toggleModal]);
 
-  const closeOnBackDrop = (event) => {
+  const closeOnBackDrop = (event: React.MouseEvent<HTMLElement>): void => {
     if (event.target === event.currentTarget) {
       toggleModal();
     }

@@ -6,15 +6,15 @@ import SearchBar from "./Components/SearchBar/SearchBar";
 import toast, { Toaster } from "react-hot-toast";
 import { LoadMoreBtn } from "./Components/LoadMoreBtn/LoadMoreBtn";
 import UnsplashAPI from "./api/unsplash-api";
-import ImageModal from "./Components/ImageModal/ImageModal";
 import ErrorMessage from "./Components/ErrorMessage/ErrorMessage";
+import { Photo } from "./types";
 
 const unsplashAPI = new UnsplashAPI();
 
 function App() {
-  const [showError, setError] = useState(false);
+  const [showError, setError] = useState<boolean>(false);
   const [query, setQuery] = useState<string>("");
-  const [photos, setPhotos] = useState([]);
+  const [photos, setPhotos] = useState<Photo[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [showButton, setShowButton] = useState<boolean>(false);
 
@@ -37,7 +37,6 @@ function App() {
         if (data.total_pages !== unsplashAPI.page) {
           setShowButton(true);
         }
-        console.log(data);
       })
       .catch(() => setError(true))
       .finally(() => setLoading(false));
@@ -70,7 +69,7 @@ function App() {
     <div className="app">
       <Toaster />
       <SearchBar onSubmit={onSubmit} loading={loading} />
-      {photos && <ImageGallery photos={photos} />}
+      {photos && <ImageGallery results={photos} />}
       {showButton && <LoadMoreBtn loadMore={loadMore} />}
       {showError && <ErrorMessage />}
     </div>

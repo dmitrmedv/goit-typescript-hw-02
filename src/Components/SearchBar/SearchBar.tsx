@@ -1,17 +1,23 @@
-import { useState } from "react";
+import React, { FormEvent, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import css from "./Searchbar.module.css";
 import toast from "react-hot-toast";
 import { Loader } from "../Loader/Loader";
 
-const SearchBar = ({ onSubmit, loading }) => {
+interface SearchBarProps {
+  onSubmit: (query: string) => void;
+  loading: boolean;
+}
+
+const SearchBar: React.FC<SearchBarProps> = ({ onSubmit, loading }) => {
   const [query, setQuery] = useState<string>("");
 
-  const setSearchQuery = (event): void => {
-    setQuery(event.target.value);
+  const setSearchQuery = (event: FormEvent): void => {
+    const target = event.target as HTMLInputElement;
+    setQuery(target.value);
   };
 
-  const handleSubmit = (event): void => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
     if (!query) {
       toast.error(`заповніть поле пошуку...`);
@@ -30,6 +36,7 @@ const SearchBar = ({ onSubmit, loading }) => {
           autoComplete="off"
           autoFocus
           placeholder="Search images and photos"
+          value={query}
         />
         <button type="submit" className={css.button}>
           <span className={css.buttonLabel}></span>

@@ -1,6 +1,6 @@
 import React, { FormEvent, useState } from "react";
 import { FaSearch } from "react-icons/fa";
-import css from "./Searchbar.module.css";
+import css from "./SearchBar.module.css";
 import toast from "react-hot-toast";
 import { Loader } from "../Loader/Loader";
 
